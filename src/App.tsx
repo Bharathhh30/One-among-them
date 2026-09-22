@@ -1,5 +1,6 @@
 import type { CSSProperties, FormEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 type Character = { id: string; name: string; image: string };
 type DumpCharacter = Character & { x: number; y: number; size: number; rotation: number; z: number; radius: string };
@@ -148,6 +149,7 @@ function App() {
   }
 
   return (
+    <>
     <main className="app-shell">
       <header className="masthead">
         <span className="eyebrow">a tiny experiment using system one model</span>
@@ -246,6 +248,8 @@ function App() {
         />
       ))}
     </main>
+    <Analytics />
+    </>
   );
 }
 
