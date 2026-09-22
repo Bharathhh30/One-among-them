@@ -8,5 +8,7 @@ app = FastAPI(title="One Among Them Classification")
 
 
 @app.post("/")
+@app.post("/classify")
+@app.post("/api/classify")
 async def classify(request: ClassifyRequest):
     return await classify_backend(request)
