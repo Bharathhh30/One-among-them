@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "generatedAt": "2026-09-22T06:58:30.116Z",
+    "rangeLabel": "all",
+    "agents": [
+      "codex"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 68422319,
+      "turns": 37,
+      "files": 0,
+      "netLines": 0,
+      "toolCallsTotal": 37,
+      "toolSuccessRate": 73,
+      "totalCostUSD": 0,
+      "cacheReadCostUSD": 0,
+      "pricedSessions": 0
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "codex",
+        "total": 1,
+        "priced": 0,
+        "withLog": 0
+      }
+    ],
+    "userEmail": "vasarla_nagasaibharath@epam.com",
+    "periodStart": "2026-09-21T11:58:07.599Z",
+    "periodEnd": "2026-09-22T06:58:29.918Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "7e20b367-57d5-4de3-a47b-8927f41b6c4f",
+      "agentName": "codex",
+      "provider": "ai-run-sso",
+      "title": "",
+      "project": "C:\\Users\\VasarlaNagaSaiBharat\\Personal\\Experimenting\\one-of-them",
+      "branch": "Unknown",
+      "startTime": 1789991887599,
+      "durationMs": 68422319,
+      "turns": 37,
+      "fileOps": 0,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 37,
+      "toolCallsSuccess": 27,
+      "toolCallsFailure": 10,
+      "models": [
+        "gpt-5.6-luna-2026-07-09"
+      ],
+      "languages": [],
+      "tools": [
+        {
+          "toolName": "exec_command",
+          "totalCalls": 34,
+          "successCount": 24,
+          "failureCount": 10,
+          "successRate": 70.58823529411765
+        },
+        {
+          "toolName": "write_stdin",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "view_image",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "costUSD": 0,
+      "cacheReadCostUSD": 0,
+      "perModelCost": [],
+      "hadLog": false,
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}
