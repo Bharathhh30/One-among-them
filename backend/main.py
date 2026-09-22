@@ -221,6 +221,7 @@ async def typesafe_classify(text: str) -> dict[str, Any]:
     return {"categories": categories, "characters": selected, "source": "jev-latest"}
 
 
+@app.post("/classify")
 @app.post("/api/classify")
 async def classify(request: ClassifyRequest):
     text = request.input.strip()
