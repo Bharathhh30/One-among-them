@@ -19,7 +19,8 @@ const characters: Character[] = [
   ["suzuka", "Suzuka", "suzuka.png"], ["arjun", "Arjun", "arjun.png"], ["arjun-trying", "Arjun Trying", "arjun-trying.png"],
   ["jd", "JD", "jd.png"], ["jd-sad", "JD Sad", "jd-sad.png"], ["anuskha-sharma", "Anushka Sharma", "anuskha-sharma.png"],
   ["barfi", "Barfi", "Barfi.png"], ["doreamon-acha-loude", "Doreamon", "doreamon-acha-loude.png"], ["leo-das", "Leo Das", "leo-das.png"],
-  ["parthiban", "Parthiban", "parthiban.png"],
+  ["parthiban", "Parthiban", "parthiban.png"], ["ash", "Ash", "ash.png"],
+  ["vasanth-1", "Vasanth 1", "vasanth-1.png"], ["vasanth-2", "Vasanth 2", "vasanth-2.png"], ["vasanth-3", "Vasanth 3", "vasanth-3.png"],
 ].map(([id, name, file]) => ({ id, name, image: `/one-among-them/${file}` }))
   // One physical image may only occupy one place in the dump.
   .filter((character, index, all) => all.findIndex((item) => item.image === character.image) === index);

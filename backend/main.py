@@ -34,6 +34,7 @@ ARCHETYPES = {
     "revenge_driven": "revenge driven ruthless intimidating",
     "romantic": "romantic charming dramatic emotionally intense",
     "one_sided_love": "loving someone who loves another person; unrequited, one-sided romantic love and heartbreak",
+    "good_boy": "a teasing, wholesome good-boy persona; well-behaved, obedient, innocent, teacher's-pet energy",
     "philosophical": "philosophical wise calm reflective",
     "power_hungry": "power hungry dominant territorial ambitious",
     "adventurous": "adventurous curious energetic exploring",
@@ -91,7 +92,14 @@ CHARACTER_TAGS = {
     "doreamon-acha-loude": ["kind", "lovable", "chaotic"],
     "leo-das": ["antihero", "revenge_driven", "power_hungry"],
     "parthiban": ["composed", "antihero", "philosophical"],
-    "ash": ["unyielding", "ambitious"]
+    "ash": ["unyielding", "ambitious"],
+    "vasanth-1": ["good_boy"],
+    "vasanth-2": ["good_boy"],
+    "vasanth-3": ["good_boy"]
+}
+
+EXCLUSIVE_CHARACTER_GROUPS = {
+    "good_boy": ["vasanth-1", "vasanth-2", "vasanth-3"],
 }
 
 
@@ -116,12 +124,33 @@ def is_one_sided_love(text: str) -> bool:
     )
 
 
+def is_good_boy_intent(text: str) -> bool:
+    lowered = text.lower()
+    phrases = (
+        "good boy",
+        "good-boy",
+        "well behaved",
+        "well-behaved",
+        "teacher's pet",
+        "teachers pet",
+        "obedient boy",
+    )
+    return any(phrase in lowered for phrase in phrases)
+
+
 def fallback_classify(text: str) -> dict[str, Any]:
     if is_one_sided_love(text):
         return {
             "categories": [{"id": "one_sided_love", "probability": 1.0}],
             "characters": ["pr"],
             "mode": "one_sided_love",
+            "source": "local fallback",
+        }
+    if is_good_boy_intent(text):
+        return {
+            "categories": [{"id": "good_boy", "probability": 1.0}],
+            "characters": EXCLUSIVE_CHARACTER_GROUPS["good_boy"],
+            "mode": "good_boy",
             "source": "local fallback",
         }
     tokens = set(re.findall(r"[a-z]+", text.lower()))
@@ -188,6 +217,14 @@ async def typesafe_classify(text: str) -> dict[str, Any]:
                     "false": "The user is not describing unreturned romantic love.",
                 },
             },
+            "good_boy_intent": {
+                "type": "noul",
+                "instructions": "Is the user teasingly describing a wholesome, well-behaved, obedient, innocent good-boy persona?",
+                "criteria": {
+                    "true": "The user is clearly invoking good-boy, well-behaved, obedient, or teacher's-pet energy.",
+                    "false": "The user is not describing that teasing good-boy persona.",
+                },
+            },
         },
     }
     async with httpx.AsyncClient(timeout=20) as client:
@@ -207,11 +244,19 @@ async def typesafe_classify(text: str) -> dict[str, Any]:
     probabilities = dict(answer.get("probabilities", {}))
     country_signal = response.json().get("answers", {}).get("country_mission", {}).get("noul", 0.0)
     one_sided_signal = response.json().get("answers", {}).get("one_sided_love", {}).get("noul", 0.0)
+    good_boy_signal = response.json().get("answers", {}).get("good_boy_intent", {}).get("noul", 0.0)
     if one_sided_signal >= 0.7:
         return {
             "categories": [{"id": "one_sided_love", "probability": one_sided_signal}, *categories[:4]],
             "characters": ["pr"],
             "mode": "one_sided_love",
+            "source": "jev-latest",
+        }
+    if good_boy_signal >= 0.7:
+        return {
+            "categories": [{"id": "good_boy", "probability": good_boy_signal}, *categories[:4]],
+            "characters": EXCLUSIVE_CHARACTER_GROUPS["good_boy"],
+            "mode": "good_boy",
             "source": "jev-latest",
         }
     if country_signal >= 0.55:
